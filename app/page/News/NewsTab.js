@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
-import {FlatList, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, ActivityIndicator, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
 import Dimensions from 'Dimensions';
 
 import styles from '../../style/NewsStyle';
 import ArrUtil from '../../util/ArrUtil';
+import HttpRequest from '../../common/HttpRequest';
 
 const baseUrl = 'https://raw.githubusercontent.com/wukong1688/RN-AppJoke/master/data/list_';
 
 const screenWidth = Dimensions.get('window').width;
+
+let pageNo = 0;//当前第几页
+let totalPage = 2;//总的页数
 
 /**
  * 新闻主页
@@ -17,12 +21,10 @@ class NewsTab extends Component {
         super(props);
         //在这里定义json返回的key
         this.state = {
-            //控制分类展示
-            isShow: false,
-            //分类
-            newsType: 0,
-            //下拉刷新
-            refreshing: false,
+            isFirstLoading: true,//首次加载标记
+            isDownRefreshing: false, //下拉刷新标记
+            isUpLoading: true,  //上拉加载标记
+
             //data数据
             resultJson: null,
             error_code: '',
@@ -30,33 +32,27 @@ class NewsTab extends Component {
             result: {
                 data: ''
             },
+
+            //网络请求状态
+            error: false,
+            errorInfo: "",
+
+            showFoot: 0, // 控制foot， 0：隐藏footer  1：已加载完成,没有更多数据   2 ：显示加载中
         }
     }
 
     componentDidMount() {
-        this.getRequest(baseUrl + '0.json'); //默认从0数据开始读
+        this.fetchData(baseUrl + '0.json', 0); //默认从0页数据开始读
     }
 
-    getRequest(url) {
-        // alert(url);
-        // console.log(url);
+    fetchData(url, pageNo) {
         const opts = {
             method: 'GET',
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0',
-                'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
-                'Accept-Encoding': 'gzip, deflate',
-                'Referer': 'www.baidu.com',
-                'Connection': 'keep-alive',
-                'Cache-Control': 'no-cache',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            headers: HttpRequest.getHeaders(),
         };
 
         fetch(url, opts)
             .then((res) => {
-                this.setState({refreshing: false});
                 return res.json();
             })
             .then((response) => {
@@ -64,7 +60,18 @@ class NewsTab extends Component {
                 if (error_code != 0) {
                     alert(response.reason);
                 } else {
+                    let foot = 0;
+                    if (pageNo >= totalPage) {
+                        foot = 1;//listView底部显示没有更多数据了
+                    }
+
                     this.setState({
+                        isFirstLoading: false, //首次加载完毕
+                        isDownRefreshing: false,
+
+                        isUpLoading: false,
+                        showFoot: foot,
+
                         result: response.result,
                         data: ArrUtil.shuffle(response.result.data),
                     });
@@ -77,11 +84,15 @@ class NewsTab extends Component {
             .done();
     }
 
+
     //下拉刷新
     _onRefresh(type) {
         type = type < 3 ? type : 1;
-        this.setState({refreshing: true});
-        this.getRequest(baseUrl + type + '.json');
+        this.setState({
+            showFoot: 0,
+            isDownRefreshing: true
+        });
+        this.fetchData(baseUrl + type + '.json', type);
     }
 
     //列表点击事件
@@ -132,34 +143,87 @@ class NewsTab extends Component {
         )
     };
 
-    // _onLoadRefresh() {
-    //     return <Text>数据加载中...</Text>;
-    // }
+    _renderFooter() {
+        if (this.state.showFoot === 1) {
+            return (
+                <View style={{height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <Text style={{color: '#999999', fontSize: 14, marginTop: 5, marginBottom: 5,}}>
+                        没有更多数据了
+                    </Text>
+                </View>
+            );
+        } else if (this.state.showFoot === 2) {
+            return (
+                <View style={{height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <ActivityIndicator/>
+                    <Text>正在加载...</Text>
+                </View>
+            );
+        } else if (this.state.showFoot === 0) {
+            return (
+                <View style={{height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <Text></Text>
+                </View>
+            );
+        }
+    }
+
+    _onEndReached() {
+        //如果是正在加载中或没有更多数据了，则返回
+        if (this.state.showFoot != 0) {
+            return;
+        }
+
+        //如果当前页大于或等于总页数，那就是到最后一页了，返回
+        if ((pageNo != 1) && (pageNo >= totalPage)) {
+            return;
+        } else {
+            pageNo++;
+        }
+        //底部显示正在加载更多数据
+        this.setState({showFoot: 2});
+        //获取数据
+        this.fetchData(baseUrl + pageNo + '.json', pageNo);
+    }
 
 
     render() {
+        //第一次加载等待的view
+        if (this.state.isFirstLoading && !this.state.error) {
+            return HttpRequest.renderLoadingView();
+        } else if (this.state.error) {
+            //请求失败view
+            return HttpRequest.renderErrorView(this.state.error);
+        }
+        //加载数据
+        return this.renderData();
+    }
 
+    renderData() {
         return (
 
-                <FlatList
+            <FlatList
                 data={this.state.result.data}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._itemDivide}
-                // onRefresh={this._onLoadRefresh}
+
+                //下拉刷新
                 refreshControl={
-                <RefreshControl
-                refreshing={this.state.refreshing}
-                // onRefresh={this._onRefresh.bind(this, this.state.newsType)}
-                onRefresh={this._onRefresh.bind(this, 2)}
-                />
+                    <RefreshControl
+                        refreshing={this.state.isDownRefreshing}
+                        onRefresh={this._onRefresh.bind(this, 1)}
+                    />
                 }
-                />
 
-        )
+                //上拉加载
+                ListFooterComponent={this._renderFooter.bind(this)}
+                onEndReached={this._onEndReached.bind(this)}
+                onEndReachedThreshold={1}
+            />
 
+        );
     }
-
 
 
 }

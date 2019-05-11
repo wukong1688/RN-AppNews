@@ -5,7 +5,7 @@ import {createAppContainer, createMaterialTopTabNavigator, createStackNavigator}
 //展示的页面
 import News from './page/News/News';
 import Video from './page/Video/Video';
-import Discover from './page/Discover';
+import Image from './page/Image/Image';
 import Mine from './page/Mine/Mine';
 import MineSetting from './page/Mine/MineSetting';
 import AboutUs from './page/AboutUs';
@@ -39,17 +39,17 @@ const Tab = createMaterialTopTabNavigator({
             ),
         },
     },
-    // Discover: {
-    //     screen: Discover,
-    //     navigationOptions: {
-    //         tabBarLabel: '图片',
-    //         tabBarIcon: ({tintColor, focused}) => (
-    //             <Image
-    //                 source={focused ? require('./res/main_tab_image_icon_pressed.png') : require('./res/main_tab_image_icon.png')}
-    //                 style={[{height: 18, width: 18}]}/>
-    //         ),
-    //     }
-    // },
+    Image: {
+        screen: Image,
+        navigationOptions: {
+            tabBarLabel: '图片',
+            tabBarIcon: ({tintColor, focused}) => (
+                <Image
+                    source={focused ? require('./res/main_tab_image_icon_pressed.png') : require('./res/main_tab_image_icon.png')}
+                    style={[{height: 18, width: 18}]}/>
+            ),
+        }
+    },
     Mine: {
         screen: Mine,
         navigationOptions: {
