@@ -11,7 +11,7 @@ export default class app extends Component {
             () => {
                 SplashScreen.hide(); // 启动页隐藏
             },
-            500
+            2500
         );
     }
 

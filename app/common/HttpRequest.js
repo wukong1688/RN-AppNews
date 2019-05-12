@@ -1,6 +1,9 @@
 import {ActivityIndicator, Text, View} from "react-native";
-import styles from "../style/NewsStyle";
 import React from "react";
+
+import ScreenUtil from '../util/ScreenUtil';
+
+const screenWidth = ScreenUtil.screenWidth();
 
 /**
  * HTTP工具函数
@@ -31,7 +34,7 @@ let HttpRequest = {
      */
     renderLoadingView: () => {
         return (
-            <View style={[styles.container, {flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}]}>
+            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                 <ActivityIndicator
                     animating={true}
                     color='blue'
@@ -47,10 +50,48 @@ let HttpRequest = {
      */
     renderErrorView: (error) => {
         return (
-            <View style={[styles.container, {flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}]}>
+            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                 <Text>
-                    加载失败
+                    加载失败: + {error}
                 </Text>
+            </View>
+        );
+    },
+
+    /**
+     * 加载分页数据等待页
+     */
+    renderMoreDataLoadingView: () => {
+        return (
+            <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <ActivityIndicator/>
+                <Text>正在加载...</Text>
+            </View>
+        );
+    },
+
+    /**
+     * 加载分页数据等待页
+     */
+    renderMoreDataEmptyView: () => {
+        return (
+            <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <Text style={{color: '#999999', fontSize: 14, marginTop: 5, marginBottom: 5,}}>
+                    没有更多数据了
+                </Text>
+            </View>
+        );
+    },
+
+
+    /**
+     * 空
+     * @returns {*}
+     */
+    renderMoreDataNoneView: () => {
+        return (
+            <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <Text></Text>
             </View>
         );
     },

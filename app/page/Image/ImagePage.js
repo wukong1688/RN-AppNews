@@ -21,9 +21,9 @@ class ImagePage extends Component {
         super(props);
         //在这里定义json返回的key
         this.state = {
-            isFirstLoading: true,//首次加载标记
-            isDownRefreshing: false, //下拉刷新标记
-            isUpLoading: true,  //上拉加载标记
+            //下拉刷新，上拉加载
+            isRefreshing: true, //下拉刷新标记
+            isLoading: false,  //上拉加载标记
 
             //data数据
             resultJson: null,
@@ -40,15 +40,15 @@ class ImagePage extends Component {
     }
 
     componentDidMount() {
+        pageNo = 0; //切换tab时 pageNo 也要归零
         this.fetchData(baseUrl + '0.json', 0); //默认从0页数据开始读
     }
 
-    fetchData(url, pageNo, type) {
+    fetchData(url, pageNo) {
         const opts = {
             method: 'GET',
             headers: HttpRequest.getHeaders(),
         };
-
         fetch(url, opts)
             .then((res) => {
                 return res.json();
@@ -59,21 +59,22 @@ class ImagePage extends Component {
                     foot = 1;//listView底部显示没有更多数据了
                 }
 
-                if(type === 1){  //刷新,以前的数据全部清掉
-
-                }else{  //加载，数据追加到后面
-
+                let dataRes = [];
+                let responseData = ArrUtil.shuffle(response.results);
+                if (this.state.isRefreshing) {  //刷新,以前的数据全部清掉
+                    dataRes = responseData;
+                } else {  //加载，数据追加到后面
+                    dataRes = this.state.data.concat(responseData);
                 }
 
                 this.setState({
-                    isFirstLoading: false, //首次加载完毕
-                    isDownRefreshing: false,
+                    isRefreshing: false,
+                    isLoading: false,
 
-                    isUpLoading: false,
                     showFoot: foot,
 
                     // result: response.result,
-                    data: ArrUtil.shuffle(response.results),
+                    data: dataRes,
                 });
             })
             .catch((error) => {
@@ -86,17 +87,16 @@ class ImagePage extends Component {
 
     //下拉刷新
     _onRefresh(type) {
-        type = type < 3 ? type : 1;
         this.setState({
-            showFoot: 0,
-            isDownRefreshing: true
+            showFoot: 2,
+            isRefreshing: true
         });
+        pageNo = 0; //刷新时，页码归0
         this.fetchData(baseUrl + type + '.json', type);
     }
 
     //列表点击事件
     itemClick(item, index) {
-        // alert('新闻标题：' + item.author_name + '\n时间：' + item.date + '\n' + item.url);
         this.props.navigation.navigate('ImageDetail', {
             title: item.desc,
             url: item.url,
@@ -139,26 +139,11 @@ class ImagePage extends Component {
 
     _renderFooter() {
         if (this.state.showFoot === 1) {
-            return (
-                <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
-                    <Text style={{color: '#999999', fontSize: 14, marginTop: 5, marginBottom: 5,}}>
-                        没有更多数据了
-                    </Text>
-                </View>
-            );
+            return HttpRequest.renderMoreDataEmptyView();
         } else if (this.state.showFoot === 2) {
-            return (
-                <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
-                    <ActivityIndicator/>
-                    <Text>正在加载...</Text>
-                </View>
-            );
+            return HttpRequest.renderMoreDataLoadingView();
         } else if (this.state.showFoot === 0) {
-            return (
-                <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
-                    <Text></Text>
-                </View>
-            );
+            return HttpRequest.renderMoreDataNoneView();
         }
     }
 
@@ -175,7 +160,10 @@ class ImagePage extends Component {
             pageNo++;
         }
         //底部显示正在加载更多数据
-        this.setState({showFoot: 2});
+        this.setState({
+            showFoot: 2,
+            isLoading: true,
+        });
         //获取数据
         this.fetchData(baseUrl + pageNo + '.json', pageNo);
     }
@@ -183,7 +171,7 @@ class ImagePage extends Component {
 
     render() {
         //第一次加载等待的view
-        if (this.state.isFirstLoading && !this.state.error) {
+        if (this.state.isRefreshing && !this.state.error) {
             return HttpRequest.renderLoadingView();
         } else if (this.state.error) {
             //请求失败view
@@ -211,8 +199,8 @@ class ImagePage extends Component {
                 //下拉刷新
                 refreshControl={
                     <RefreshControl
-                        refreshing={this.state.isDownRefreshing}
-                        onRefresh={this._onRefresh.bind(this, 1)}
+                        refreshing={this.state.isRefreshing}
+                        onRefresh={this._onRefresh.bind(this, 0)}
                     />
                 }
 

@@ -63,7 +63,7 @@ const Tab = createMaterialTopTabNavigator({
         }
     },
 }, {
-    initialRouteName: 'ImagePage',
+    initialRouteName: 'News',
     swipeEnabled: false, //是否可滑动切换
     animationEnabled: true,
     backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
