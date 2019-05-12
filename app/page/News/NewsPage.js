@@ -7,7 +7,7 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 /**
  * 新闻主页
  */
-class News extends Component {
+class NewsPage extends Component {
 
     render() {
 
@@ -34,4 +34,4 @@ class News extends Component {
 
 }
 
-module.exports = News;
+module.exports = NewsPage;
