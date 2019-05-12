@@ -35,7 +35,21 @@ export const styles = StyleSheet.create({
     imgStyle: {
         width: width * 0.3,
         height: 80
-    }
+    },
+    itemPadding: {
+        padding: 3.5,
+        height: width * 0.65,
+        width: width / 2,
+    },
+    listViewStyle: {
+        // 主轴方向
+        flexDirection: 'row',
+        // 一行显示不下,换一行
+        flexWrap: 'wrap',
+        // 侧轴方向
+        alignItems: 'center', // 必须设置,否则换行不起作用
+    },
+
 });
 
 module.exports = styles;

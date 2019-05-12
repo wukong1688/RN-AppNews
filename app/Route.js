@@ -5,11 +5,12 @@ import {createAppContainer, createMaterialTopTabNavigator, createStackNavigator}
 //展示的页面
 import News from './page/News/News';
 import Video from './page/Video/Video';
-import Image from './page/Image/Image';
+import ImagePage from './page/Image/ImagePage';
 import Mine from './page/Mine/Mine';
 import MineSetting from './page/Mine/MineSetting';
 import AboutUs from './page/AboutUs';
 import NewsDetail from './page/News/NewsDetail';
+import ImageDetail from './page/Image/ImageDetail';
 
 import styles from './style/AppStyle';
 
@@ -39,8 +40,8 @@ const Tab = createMaterialTopTabNavigator({
             ),
         },
     },
-    Image: {
-        screen: Image,
+    ImagePage: {
+        screen: ImagePage,
         navigationOptions: {
             tabBarLabel: '图片',
             tabBarIcon: ({tintColor, focused}) => (
@@ -62,7 +63,7 @@ const Tab = createMaterialTopTabNavigator({
         }
     },
 }, {
-    // initialRouteName: 'Video',
+    initialRouteName: 'ImagePage',
     swipeEnabled: false, //是否可滑动切换
     animationEnabled: true,
     backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
@@ -105,6 +106,9 @@ const AppNavigator = createStackNavigator({
     },
     NewsDetail: {
         screen: NewsDetail
+    },
+    ImageDetail: {
+        screen: ImageDetail
     },
 
 });

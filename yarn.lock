@@ -1706,7 +1706,7 @@ cosmiconfig@^5.0.5:
     js-yaml "^3.13.0"
     parse-json "^4.0.0"
 
-create-react-class@^15.6.3:
+create-react-class@^15.6.2, create-react-class@^15.6.3:
   version "15.6.3"
   resolved "https://registry.npm.taobao.org/create-react-class/download/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha1-LXMjf7P5cK5uvgEanmb0bbyoADY=
@@ -4804,7 +4804,7 @@ prompts@^2.0.1:
     kleur "^3.0.2"
     sisteransi "^1.0.0"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.7.2"
   resolved "https://registry.npm.taobao.org/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -4916,6 +4916,22 @@ react-native-gesture-handler@^1.2.1:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-root-siblings@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/react-native-root-siblings/download/react-native-root-siblings-3.2.0.tgz#f6a09f1b800181be647058f09e52442fafbd20af"
+  integrity sha1-9qCfG4ABgb5kcFjwnlJEL6+9IK8=
+  dependencies:
+    prop-types "^15.6.2"
+    static-container "^1.0.0"
+
+react-native-root-toast@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/react-native-root-toast/download/react-native-root-toast-3.0.2.tgz#85c0c50d300c895a35ea98587b4ad4c9540297ee"
+  integrity sha1-hcDFDTAMiVo16phYe0rUyVQCl+4=
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-root-siblings "^3.0.0"
+
 react-native-safe-area-view@^0.13.0:
   version "0.13.1"
   resolved "https://registry.npm.taobao.org/react-native-safe-area-view/download/react-native-safe-area-view-0.13.1.tgz#834bbb6d22f76a7ff07de56725ee5667ba1386b0"
@@ -4928,6 +4944,15 @@ react-native-safe-area-view@^0.13.0:
   resolved "https://registry.npm.taobao.org/react-native-screens/download/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha1-ehIDd7Uqqbu5TQuFQaAUAmvpKJs=
 
+react-native-scrollable-tab-view@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.npm.taobao.org/react-native-scrollable-tab-view/download/react-native-scrollable-tab-view-0.10.0.tgz#8ce7908254685ee37d35df7d849676eaa1e81132"
+  integrity sha1-jOeQglRoXuN9Nd99hJZ26qHoETI=
+  dependencies:
+    create-react-class "^15.6.2"
+    prop-types "^15.6.0"
+    react-timer-mixin "^0.13.3"
+
 react-native-splash-screen@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
@@ -4939,6 +4964,11 @@ react-native-tab-view@^1.2.0, react-native-tab-view@^1.3.4:
   integrity sha1-xwofaoahK9tuizDDkK/HUd/kEnU=
   dependencies:
     prop-types "^15.6.1"
+
+react-native-ultimate-listview@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npm.taobao.org/react-native-ultimate-listview/download/react-native-ultimate-listview-3.3.0.tgz#92fd0dbe5b291681fc679c1016a180f2da805334"
+  integrity sha1-kv0NvlspFoH8Z5wQFqGA8tqAUzQ=
 
 react-native@0.59.5:
   version "0.59.5"
@@ -5046,6 +5076,11 @@ react-test-renderer@16.8.3:
     prop-types "^15.6.2"
     react-is "^16.8.3"
     scheduler "^0.13.3"
+
+react-timer-mixin@^0.13.3:
+  version "0.13.4"
+  resolved "https://registry.npm.taobao.org/react-timer-mixin/download/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
+  integrity sha1-daAMPJTBOr4ptD1jtMZaiPyCZNM=
 
 react-transform-hmr@^1.0.4:
   version "1.0.4"
@@ -5677,6 +5712,11 @@ stacktrace-parser@^0.1.3:
   integrity sha1-wX1GbRW6Ub7i91PQZPFzJ6iG/zc=
   dependencies:
     type-fest "^0.3.0"
+
+static-container@^1.0.0:
+  version "1.3.0"
+  resolved "https://registry.npm.taobao.org/static-container/download/static-container-1.3.0.tgz#e4f7b4be4e42954e3d1955ab7b3974a78b7bad87"
+  integrity sha1-5Pe0vk5ClU49GVWrezl0p4t7rYc=
 
 static-extend@^0.1.1:
   version "0.1.2"

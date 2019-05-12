@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {FlatList, ActivityIndicator, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, ActivityIndicator, Image, RefreshControl, Text, TouchableHighlight, View} from 'react-native';
 import Dimensions from 'Dimensions';
 
-import styles from '../../style/NewsStyle';
+import styles from '../../style/ImageStyle';
 import ArrUtil from '../../util/ArrUtil';
 import HttpRequest from '../../common/HttpRequest';
 
-const baseUrl = 'https://raw.githubusercontent.com/wukong1688/RN-AppNews/master/apk/data/news_list_';
+const baseUrl = 'https://raw.githubusercontent.com/wukong1688/RN-AppNews/master/apk/data/image_list_';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -16,7 +16,7 @@ let totalPage = 2;//总的页数
 /**
  * 新闻主页
  */
-class NewsTab extends Component {
+class ImagePage extends Component {
     constructor(props) {
         super(props);
         //在这里定义json返回的key
@@ -29,9 +29,7 @@ class NewsTab extends Component {
             resultJson: null,
             error_code: '',
             reason: '',
-            result: {
-                data: ''
-            },
+            data: {},
 
             //网络请求状态
             error: false,
@@ -45,7 +43,7 @@ class NewsTab extends Component {
         this.fetchData(baseUrl + '0.json', 0); //默认从0页数据开始读
     }
 
-    fetchData(url, pageNo) {
+    fetchData(url, pageNo, type) {
         const opts = {
             method: 'GET',
             headers: HttpRequest.getHeaders(),
@@ -56,26 +54,27 @@ class NewsTab extends Component {
                 return res.json();
             })
             .then((response) => {
-                var error_code = response.error_code;
-                if (error_code != 0) {
-                    alert(response.reason);
-                } else {
-                    let foot = 0;
-                    if (pageNo >= totalPage) {
-                        foot = 1;//listView底部显示没有更多数据了
-                    }
-
-                    this.setState({
-                        isFirstLoading: false, //首次加载完毕
-                        isDownRefreshing: false,
-
-                        isUpLoading: false,
-                        showFoot: foot,
-
-                        result: response.result,
-                        data: ArrUtil.shuffle(response.result.data),
-                    });
+                let foot = 0;
+                if (pageNo >= totalPage) {
+                    foot = 1;//listView底部显示没有更多数据了
                 }
+
+                if(type === 1){  //刷新,以前的数据全部清掉
+
+                }else{  //加载，数据追加到后面
+
+                }
+
+                this.setState({
+                    isFirstLoading: false, //首次加载完毕
+                    isDownRefreshing: false,
+
+                    isUpLoading: false,
+                    showFoot: foot,
+
+                    // result: response.result,
+                    data: ArrUtil.shuffle(response.results),
+                });
             })
             .catch((error) => {
                 alert(error);
@@ -98,8 +97,8 @@ class NewsTab extends Component {
     //列表点击事件
     itemClick(item, index) {
         // alert('新闻标题：' + item.author_name + '\n时间：' + item.date + '\n' + item.url);
-        this.props.navigation.navigate('NewsDetail', {
-            title: item.title,
+        this.props.navigation.navigate('ImageDetail', {
+            title: item.desc,
             url: item.url,
         })
     }
@@ -109,44 +108,39 @@ class NewsTab extends Component {
 
     //子item渲染
     _renderItem = ({item, index}) => {
+        let w = screenWidth * 0.5 - 7;
+        let h = screenWidth * 0.65 - 7;
+        let style = styles.itemPadding;
+
         return (
-            <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={this.itemClick.bind(this, item, index)}>
-                <View style={{backgroundColor: '#ffffff', padding: 10, flexDirection: 'row'}}>
-                    <Image source={{uri: item.thumbnail_pic_s}} style={styles.imgStyle}/>
-                    <View style={{flex: 1, flexDirection: 'column'}}>
 
-                        <Text style={{
-                            paddingRight: 10,
-                            marginLeft: 10,
-                            width: screenWidth * 0.65,
-                            height: 80 * 0.7
-                        }}>{item.title}</Text>
+            <TouchableHighlight
+                key={item._id}
+                style={style}
+                underlayColor={'rgba(255,255,255,0.5)'}
+                onPress={this.itemClick.bind(this, item, index)}
+            >
+                <Image
+                    defaultSource={require('../../res/image_icon.png')}
+                    source={{uri: item.url}} style={{height: h, width: w}}
+                    resizeMethod="resize"
+                />
+            </TouchableHighlight>
 
-                        <View style={{flexDirection: 'row', paddingLeft: 10, paddingRight: 10}}>
-                            <Text style={styles.subTitle}>{item.author_name}</Text>
-                            <Text style={styles.subTitle}> {item.date}</Text>
-                        </View>
-                    </View>
-
-                </View>
-
-            </TouchableOpacity>
         )
     };
 
     //列表分割线
     _itemDivide = () => {
         return (
-            <View style={{height: 10}}/>
+            <View style={{height: 1}}/>
         )
     };
 
     _renderFooter() {
         if (this.state.showFoot === 1) {
             return (
-                <View style={{height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <Text style={{color: '#999999', fontSize: 14, marginTop: 5, marginBottom: 5,}}>
                         没有更多数据了
                     </Text>
@@ -154,14 +148,14 @@ class NewsTab extends Component {
             );
         } else if (this.state.showFoot === 2) {
             return (
-                <View style={{height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <ActivityIndicator/>
                     <Text>正在加载...</Text>
                 </View>
             );
         } else if (this.state.showFoot === 0) {
             return (
-                <View style={{height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
+                <View style={{width: screenWidth, height: 30, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <Text></Text>
                 </View>
             );
@@ -203,10 +197,16 @@ class NewsTab extends Component {
         return (
 
             <FlatList
-                data={this.state.result.data}
+                data={this.state.data}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._itemDivide}
+
+                // 方法1）
+                // numColumns ={2} // 一行2个
+
+                // 方法2）
+                contentContainerStyle={styles.listViewStyle}
 
                 //下拉刷新
                 refreshControl={
@@ -228,4 +228,4 @@ class NewsTab extends Component {
 
 }
 
-module.exports = NewsTab;
+module.exports = ImagePage;
