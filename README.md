@@ -25,7 +25,8 @@ React Native 实现 类似今日头条的 新闻客户端（包括图文新闻+�
 <p>5）图片查看器 (详情页加载Image)</p>
 <p>6）启动页 ("react-native-splash-screen": "^3.2.0")</p>
 <p>7）新闻列表、图片列表  均为githuba网络请求加载</p>
-<p>8）其他："react-native-htmlview": "^0.14.0","react-native-root-toast": "^3.0.2"</p>
+<p>8）设置 -- 登录页</p>
+<p>9）其他："react-native-htmlview": "^0.14.0","react-native-root-toast": "^3.0.2"</p>
 
 
 <p><strong>apk体验地址：</strong></p>
