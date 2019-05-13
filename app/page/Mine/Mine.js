@@ -40,7 +40,15 @@ class Mine extends Component {
                     }}>
                         <Image source={ic_image_praise} style={styles.leftIcon}/>
                         <Text style={styles.title}>关于我们</Text>
-                        <Image source={require('../../res/icon_right.png')} style={styles.rightIcon}/>
+                        <Image source={icon_right} style={styles.rightIcon}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity activeOpacity={0.8} style={styles.rowArea} onPress={() => {
+                        this.props.navigation.navigate('LoginPage', {title: constant.stringSetting})
+                    }}>
+                        <Image source={ic_menu_star} style={styles.leftIcon}/>
+                        <Text style={styles.title}>登录</Text>
+                        <Image source={icon_right} style={styles.rightIcon}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.8} style={styles.rowArea} onPress={() => Toast.show('message')}>

@@ -54,28 +54,7 @@ class ImagePage extends Component {
                 return res.json();
             })
             .then((response) => {
-                let foot = 0;
-                if (pageNo >= totalPage) {
-                    foot = 1;//listView底部显示没有更多数据了
-                }
-
-                let dataRes = [];
-                let responseData = ArrUtil.shuffle(response.results);
-                if (this.state.isRefreshing) {  //刷新,以前的数据全部清掉
-                    dataRes = responseData;
-                } else {  //加载，数据追加到后面
-                    dataRes = this.state.data.concat(responseData);
-                }
-
-                this.setState({
-                    isRefreshing: false,
-                    isLoading: false,
-
-                    showFoot: foot,
-
-                    // result: response.result,
-                    data: dataRes,
-                });
+                this.setData(response);
             })
             .catch((error) => {
                 alert(error);
@@ -84,6 +63,29 @@ class ImagePage extends Component {
             .done();
     }
 
+    setData(response){
+        let foot = 0;
+        if (pageNo >= totalPage) {
+            foot = 1;//listView底部显示没有更多数据了
+        }
+
+        let dataRes = [];
+        let responseData = ArrUtil.shuffle(response.results);
+        if (this.state.isRefreshing) {  //刷新,以前的数据全部清掉
+            dataRes = responseData;
+        } else {  //加载，数据追加到后面
+            dataRes = this.state.data.concat(responseData);
+        }
+
+        this.setState({
+            isRefreshing: false,
+            isLoading: false,
+
+            showFoot: foot,
+
+            data: dataRes,
+        });
+    }
 
     //下拉刷新
     _onRefresh(type) {

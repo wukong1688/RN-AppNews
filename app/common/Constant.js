@@ -13,9 +13,8 @@ export default {
 
     stringDialogDetail : '对话详情',
     stringSetting : '设置',
-    stringFriend : '朋友圈',
-    stringNews : '看一看',
+    stringLogin : '登录',
     stringAbout : '关于我们',
-    githubUrl : 'https://github.com/wukong1688/RN-AppWeiLiao'
+    githubUrl : 'https://github.com/wukong1688/RN-AppNews'
 
 };

@@ -3,11 +3,13 @@ import {Image} from 'react-native';
 import {createAppContainer, createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation';
 
 //展示的页面
-import News from './page/News/News';
-import Video from './page/Video/Video';
+import News from './page/News/NewsPage';
+import ArticlePage from './page/Article/ArticlePage';
+import ArticleDetail from './page/Article/ArticleDetail';
 import ImagePage from './page/Image/ImagePage';
 import Mine from './page/Mine/Mine';
 import MineSetting from './page/Mine/MineSetting';
+import LoginPage from './page/Mine/LoginPage';
 import AboutUs from './page/AboutUs';
 import NewsDetail from './page/News/NewsDetail';
 import ImageDetail from './page/Image/ImageDetail';
@@ -28,10 +30,10 @@ const Tab = createMaterialTopTabNavigator({
             ),
         },
     },
-    Video: {
-        screen: Video,
+    ArticlePage: {
+        screen: ArticlePage,
         navigationOptions: {
-            tabBarLabel: '视频',
+            tabBarLabel: '资讯',
             tabBarIcon: ({tintColor, focused}) => (
                 <Image
                     source={focused ? require('./res/main_tab_video_icon_pressed.png') : require('./res/main_tab_video_icon.png')}
@@ -63,8 +65,8 @@ const Tab = createMaterialTopTabNavigator({
         }
     },
 }, {
-    initialRouteName: 'News',
-    swipeEnabled: false, //是否可滑动切换
+    //initialRouteName: 'Mine',
+    swipeEnabled: true, //是否可滑动切换
     animationEnabled: true,
     backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
     tabBarPosition: "bottom",
@@ -107,10 +109,15 @@ const AppNavigator = createStackNavigator({
     NewsDetail: {
         screen: NewsDetail
     },
+    ArticleDetail: {
+        screen: ArticleDetail
+    },
     ImageDetail: {
         screen: ImageDetail
     },
-
+    LoginPage: {
+        screen: LoginPage
+    },
 });
 
 export default createAppContainer(AppNavigator);

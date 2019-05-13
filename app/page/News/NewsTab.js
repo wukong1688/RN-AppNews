@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, ActivityIndicator, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, RefreshControl, Text, TouchableOpacity, View} from 'react-native';
 import Dimensions from 'Dimensions';
 
 import styles from '../../style/NewsStyle';
@@ -55,37 +55,41 @@ class NewsTab extends Component {
                 return res.json();
             })
             .then((response) => {
-                let error_code = response.error_code;
-                if (error_code != 0) {
-                    alert(response.reason);
-                } else {
-                    let foot = 0;
-                    if (pageNo >= totalPage) {
-                        foot = 1;//listView底部显示没有更多数据了
-                    }
-
-                    let dataRes = [];
-                    let responseData = ArrUtil.shuffle(response.result.data);
-                    if (this.state.isRefreshing) {  //刷新,以前的数据全部清掉
-                        dataRes = responseData;
-                    } else {  //加载，数据追加到后面
-                        dataRes = this.state.data.concat(responseData);
-                    }
-
-                    this.setState({
-                        isRefreshing: false,
-                        isLoading: false,
-                        showFoot: foot,
-
-                        data: dataRes,
-                    });
-                }
+                this.setData(response);
             })
             .catch((error) => {
                 alert(error);
                 // console.error(error);
             })
             .done();
+    }
+
+    setData(response){
+        let error_code = response.error_code;
+        if (error_code !== 0) {
+            alert(response.reason);
+        } else {
+            let foot = 0;
+            if (pageNo >= totalPage) {
+                foot = 1;//listView底部显示没有更多数据了
+            }
+
+            let dataRes = [];
+            let responseData = ArrUtil.shuffle(response.result.data);
+            if (this.state.isRefreshing) {  //刷新,以前的数据全部清掉
+                dataRes = responseData;
+            } else {  //加载，数据追加到后面
+                dataRes = this.state.data.concat(responseData);
+            }
+
+            this.setState({
+                isRefreshing: false,
+                isLoading: false,
+                showFoot: foot,
+
+                data: dataRes,
+            });
+        }
     }
 
 

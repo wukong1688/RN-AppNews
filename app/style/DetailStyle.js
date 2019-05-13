@@ -34,7 +34,6 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         backgroundColor: '#4398ff',
     },
-
     header: {
         flex: 1,
         marginTop: 16,
@@ -79,7 +78,16 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 14,
         color: constant.textBlack,
-    }
+    },
+    contentTitle:{
+        fontSize: 16,
+        alignSelf: 'center',
+        marginTop:20,
+        marginBottom:20,
+    },
+    contentHtml:{
+        fontSize: 16,
+    },
 });
 
 module.exports = styles;
