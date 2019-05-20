@@ -1,0 +1,142 @@
+{
+  "data": [
+    {
+      "firstCateName": "找场地",
+      "firstCateId": "0000001",
+      "secondCateItems": [
+        {
+          "secondCateName": "女装1",
+          "secondCateId": "1000001",
+          "items": [
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            ]
+        },
+        {
+          "secondCateName": "女鞋1",
+          "secondCateId": "1000001",
+          "items": [
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+          ]
+        },
+      ]
+    },
+    {
+      "firstCateName": "找配套",
+      "firstCateId": "0000002",
+      "secondCateItems": [
+        {
+          "secondCateName": "女装22",
+          "secondCateId": "1000001",
+          "items": [
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            }
+          ]
+        },
+      ]
+    },
+    {
+      "firstCateName": "找演艺",
+      "firstCateId": "0000003",
+      "secondCateItems": [
+        {
+          "secondCateName": "女装333",
+          "secondCateId": "1000001",
+          "items": [
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            },
+            {
+              "itemImg": "http://cms-bucket.ws.126.net/2019/05/20/63f9fb66cde6499eb8309973616a776d.jpeg?imageView&thumbnail=200y125&quality=85",
+              "title": "羽绒服",
+              "itemPrice": 100.00,
+              "itemId": "2000001"
+            }
+          ]
+        },
+      ]
+    },
+  ]
+}
